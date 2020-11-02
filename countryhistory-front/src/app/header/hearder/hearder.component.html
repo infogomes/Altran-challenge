@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <span class="navbar-brand">Search your country</span>
+    <!-- <a class="navbar-brand" href="#">Navbar</a> -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+
+            <form [formGroup]="countryForm" (ngSubmit)="onSubmit()" class="form-inline my-2 my-lg-0">
+                <input formControlName="countryName" class="form-control mr-sm-2" type="search" placeholder="Country"
+                    aria-label="Search">
+                <button [disabled]="!countryForm.valid" class="btn btn-outline-success my-2 my-sm-0"
+                    type="submit">Search</button>
+            </form>
+            <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+
+        </ul>
+        <a class="nav-link" routerLink="list">List your searches</a>
+    </div>
+</nav>
+<div *ngIf="countryForm.controls.countryName.invalid && (countryForm.controls.countryName.dirty || countryForm.controls.countryName.touched)" class="alert alert-danger" role="alert">
+    This field needs at least 3 caracteres and maximum 30
+</div>

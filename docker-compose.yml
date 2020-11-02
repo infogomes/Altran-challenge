@@ -1,0 +1,67 @@
+version: '3'
+services:
+  eurekaserver:
+    build: ./eureka-server/
+    container_name: eureka-server
+    ports:
+      - 8761:8761
+    networks:
+      - infogomesnet
+  zullserver:
+    build: ./zuul-server/
+    container_name: zuul-server
+    ports:
+      - 8765:8765
+    networks:
+      - infogomesnet
+    depends_on:
+      - eurekaserver
+    links:
+      - eurekaserver           
+  historyapi:
+    build: ./historycountryapi/
+    container_name: history-api
+    depends_on:
+      - mongo
+      - eurekaserver
+    links:
+      - mongo
+      - eurekaserver
+    networks:
+      - infogomesnet
+  countriapi:
+    build: ./countryapi/
+    container_name: countri-api
+    depends_on:
+      - eurekaserver
+    links:
+      - eurekaserver
+    networks:
+      - infogomesnet  
+  countryfront:
+    build: ./countryhistory-front/
+    container_name: countryfront
+    ports:
+      - 8081:80
+    networks:
+      - infogomesnet
+    depends_on:
+      - zullserver
+      - countriapi
+      - historyapi
+    links:
+      - zullserver
+      - countriapi
+      - historyapi
+  mongo:
+    image: mongo
+    container_name: country-mongo
+    ports:
+      - 27017:27017
+    networks:
+      - infogomesnet
+networks:
+  infogomesnet:
+    driver: bridge
+
+    

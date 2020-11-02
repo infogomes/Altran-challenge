@@ -1,0 +1,41 @@
+<div class="card">
+    <img [src]="country.flag" class="card-img-top" alt="Portugal">
+    <div class="card-body">
+        <h2 class="card-title">{{country.nativeName}}</h2>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <h5 class="card-title">{{country.name}}</h5>
+            <p class="card-text">{{country.nativeName}}</p>
+        </li>
+        <li class="list-group-item">
+            <h5 class="card-title">Language</h5>
+            <p class="card-text">{{country.languages?.name}}</p>
+            <p class="card-text">{{country.languages?.nativeName}}</p>
+        </li>
+        <li class="list-group-item">
+            <h5 class="card-title">Region</h5>
+            <p class="card-text">{{country.region}}</p>
+            <p class="card-text">{{country.subregion}}</p>
+        </li>
+    </ul>
+</div>
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Error ao Buscar</h4>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label for="dateOfBirth">Date of birth</label>
+                <div class="input-group">
+                    <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker
+                        #dp="ngbDatepicker">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</ng-template>
